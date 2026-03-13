@@ -1,0 +1,10 @@
+@GeniyIdiotWebApi_HostAddress = http://localhost:5037
+
+GET {{GeniyIdiotWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+GET {{GeniyIdiotWebApi_HostAddress}}/HealthStatus/
+Accept: application/json
+
+###
