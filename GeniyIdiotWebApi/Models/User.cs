@@ -4,12 +4,12 @@
     {
         public string Name { get; set; }
         public List<AnswerAttempt> AnswerAttempts { get; set; }
-        public GameResult GameResult { get; set; }
+        public int GameResultId { get; set; }
         public User(string name)
         {
             Name = name;
             AnswerAttempts = new List<AnswerAttempt>();
-            GameResult = new GameResult(Name);
+            GameResultId = 0;
         }
     }
 }

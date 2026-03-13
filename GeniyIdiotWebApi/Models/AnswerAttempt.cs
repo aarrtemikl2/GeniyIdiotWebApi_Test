@@ -2,15 +2,16 @@
 {
     public class AnswerAttempt
     {
-        public Question Question { get; set; }
+        public int Id { get; set; }
+        public int QuestionId { get; set; }
         public int UserAnswer { get; set; }
         public bool IsCorrect { get; set; }
 
-        public AnswerAttempt(Question question, int userAnswer)
+        public AnswerAttempt(int id,int questionId, int userAnswer)
         {
-            Question = question;
+            Id = id;
+            QuestionId = questionId;
             UserAnswer = userAnswer;
-            IsCorrect = userAnswer == question.Answer;
         }
     }
 }

@@ -2,29 +2,26 @@
 {
     public class GameResult
     {
-        public string UserName { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
         public int CorrectCount { get; set; }
         public int IncorrectCount { get; set; }
         public string Rank { get; set; }
 
-        public GameResult(string userName)
+        public GameResult(int userId)
         {
-            UserName = userName;
+            UserId = userId;
             CorrectCount = 0;
             IncorrectCount = 0;
             Rank = "";
         }
-        public GameResult(string userName, int correctCount, int incorrectCount, string rank)
+        public GameResult(int id, int userId, int correctCount, int incorrectCount, string rank)
         {
-            UserName = userName;
+            Id = id;
+            UserId = userId;
             CorrectCount = correctCount;
             IncorrectCount = incorrectCount;
             Rank = rank;
-        }
-
-        public override string ToString()
-        {
-            return $"{UserName} {CorrectCount} {IncorrectCount} {Rank}";
         }
     }
 }
