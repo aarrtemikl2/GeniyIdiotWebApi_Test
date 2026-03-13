@@ -4,12 +4,11 @@
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public int Answer { get; set; }
-        public QuestionDTO(int id, string title, int answer)
+        public QuestionDTO() { }
+        public QuestionDTO(int id, string title)
         {
             Id = id;
             Title = title;
-            Answer = answer;
         }
     }
 }
