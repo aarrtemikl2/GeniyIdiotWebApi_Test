@@ -2,13 +2,14 @@
 {
     public class User
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public List<AnswerAttempt> AnswerAttempts { get; set; }
+        public List<int> AnswerAttemptIds { get; set; }
         public int GameResultId { get; set; }
         public User(string name)
         {
             Name = name;
-            AnswerAttempts = new List<AnswerAttempt>();
+            AnswerAttemptIds = new List<int>();
             GameResultId = 0;
         }
     }
