@@ -2,6 +2,7 @@
 using GeniyIdiotWebApi.Data;
 using GeniyIdiotWebApi.Interfaces;
 using GeniyIdiotWebApi.Repository;
+using GeniyIdiotWebApi.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeniyIdiotWebApi
@@ -24,6 +25,8 @@ namespace GeniyIdiotWebApi
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+
+            builder.Services.AddScoped<QuestionService>();
 
             var app = builder.Build();
 

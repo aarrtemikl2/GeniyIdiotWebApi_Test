@@ -9,7 +9,7 @@ namespace GeniyIdiotWebApi.Services
         private readonly IQuestionRepository _questionRepository;
         private readonly Random _random = new();
 
-        public QuestionService(IQuestionRepository questionRepository, IResultRepository resultRepository)
+        public QuestionService(IQuestionRepository questionRepository)
         {
             _questionRepository = questionRepository;
         }

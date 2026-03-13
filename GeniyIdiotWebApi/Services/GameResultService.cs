@@ -1,7 +1,5 @@
 ﻿using GeniyIdiotWebApi.DTO;
-using GeniyIdiotWebApi.Models;
 using GeniyIdiotWebApi.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace GeniyIdiotWebApi.Services
 {
@@ -10,7 +8,7 @@ namespace GeniyIdiotWebApi.Services
         private readonly QuestionRepository _questionRepository;
         private readonly GameResultRepository _gameResultRepository;
         private readonly RankRepository _rankRepository;
-        public GameResultService(QuestionRepository questionRepository ,GameResultRepository gameResultRepository, RankRepository rankRepository)
+        public GameResultService(QuestionRepository questionRepository, GameResultRepository gameResultRepository, RankRepository rankRepository)
         {
             _questionRepository = questionRepository;
             _gameResultRepository = gameResultRepository;
@@ -24,13 +22,13 @@ namespace GeniyIdiotWebApi.Services
             int score = 0;
             int totalQuestions = questions.Count();
 
-            foreach(var userAnswer in request.UserAnswerDTOs)
+            foreach (var userAnswer in request.UserAnswerDTOs)
             {
                 var question = questions.FirstOrDefault(q => q.Id == userAnswer.QuestionId);
-                
+
                 if (question.Answer == userAnswer.UserAnswer)
                 {
-                    score++; 
+                    score++;
                 }
             }
             var rank = await CalculateRank(score, totalQuestions);
