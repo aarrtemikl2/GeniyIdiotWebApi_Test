@@ -1,14 +1,15 @@
 ﻿using GeniyIdiotWebApi.DTO;
+using GeniyIdiotWebApi.Interfaces;
 using GeniyIdiotWebApi.Repository;
 
 namespace GeniyIdiotWebApi.Services
 {
     public class GameResultService
     {
-        private readonly QuestionRepository _questionRepository;
+        private readonly IQuestionRepository _questionRepository;
         private readonly GameResultRepository _gameResultRepository;
         private readonly RankRepository _rankRepository;
-        public GameResultService(QuestionRepository questionRepository, GameResultRepository gameResultRepository, RankRepository rankRepository)
+        public GameResultService(IQuestionRepository questionRepository, GameResultRepository gameResultRepository, RankRepository rankRepository)
         {
             _questionRepository = questionRepository;
             _gameResultRepository = gameResultRepository;

@@ -25,8 +25,11 @@ namespace GeniyIdiotWebApi
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+            builder.Services.AddScoped<GameResultRepository>();
+            builder.Services.AddScoped<RankRepository>();
 
             builder.Services.AddScoped<QuestionService>();
+            builder.Services.AddScoped<GameResultService>();
 
             var app = builder.Build();
 
