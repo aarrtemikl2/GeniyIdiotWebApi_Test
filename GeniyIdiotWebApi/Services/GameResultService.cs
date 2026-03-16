@@ -1,5 +1,6 @@
 ﻿using GeniyIdiotWebApi.DTO;
 using GeniyIdiotWebApi.Interfaces;
+using GeniyIdiotWebApi.Models;
 using GeniyIdiotWebApi.Repository;
 
 namespace GeniyIdiotWebApi.Services
@@ -34,7 +35,19 @@ namespace GeniyIdiotWebApi.Services
             }
             var rank = await CalculateRank(score, totalQuestions);
 
-            var gameResultDTO = new GameResultDTO(request.UserId, score, rank);
+            var gameResult = new GameResult(request.UserId, score, rank);
+
+            try
+            {
+               await _gameResultRepository.SaveAsync(gameResult);
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            var gameResultDTO = new GameResultDTO(gameResult.UserId, gameResult.Score, gameResult.Rank);
 
             return gameResultDTO;
         }
