@@ -14,6 +14,18 @@ namespace GeniyIdiotWebApi.Services
             _questionRepository = questionRepository;
         }
 
+        public async Task<List<QuestionDTO>> GetQuestionsAsync()
+        {
+            var questions = await _questionRepository.GetAllAsync();
+
+            return questions.Select(q => new QuestionDTO
+            {
+                Id = q.Id,
+                Title = q.Title
+            }
+            ).ToList();
+        }
+
         public async Task<List<QuestionDTO>> GetShuffledQuestionsAsync()
         {
             var questions = await _questionRepository.GetAllAsync();

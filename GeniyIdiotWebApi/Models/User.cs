@@ -4,13 +4,10 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> AnswerAttemptIds { get; set; }
-        public int GameResultId { get; set; }
-        public User(string name)
+        public User(int id,string name)
         {
+            Id = id;
             Name = name;
-            AnswerAttemptIds = new List<int>();
-            GameResultId = 0;
         }
     }
 }

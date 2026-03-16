@@ -19,9 +19,23 @@ namespace GeniyIdiotWebApi.Controllers
         [HttpGet("questions")]
         public async Task<ActionResult<List<QuestionDTO>>> GetQuestions()
         {
+            var questions = _questionService.GetQuestionsAsync();
+
+            return Ok(questions);
+        }
+
+        [HttpGet("shuffleQuestions")]
+        public async Task<ActionResult<List<QuestionDTO>>> GetShuffleQuestions()
+        {
             var questions = _questionService.GetShuffledQuestionsAsync();
 
             return Ok(questions);
+        }
+
+        [HttpGet("GameResults")]
+        public async Task<ActionResult<List<GameResultDTO>>> GetAllGameResults()
+        {
+            //TODO: Реализовать получение всех результатов за  всё время
         }
 
         [HttpPost("GameResult")]
@@ -33,6 +47,8 @@ namespace GeniyIdiotWebApi.Controllers
             }
 
             var result = await _gameResultService.GetGameResultAsync(request);
+
+            //TODO: Тут сохранение результата  в БД
 
             return Ok(result);
         }
