@@ -5,6 +5,8 @@
         public int UserId { get; set; }
         public int Score { get; set; }
         public string Rank { get; set; }
+
+        public GameResultDTO() { }
         public GameResultDTO(int userId, int score, string rank)
         {
             UserId = userId; 

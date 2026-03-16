@@ -4,23 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GeniyIdiotWebApi.Repository
 {
-    public class GameResultRepository
+    public class UserRepository
     {
         private readonly AppDbContext _context;
-        public GameResultRepository(AppDbContext context)
+        public UserRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<GameResult>> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            var gameResults = await _context.GameResults.ToListAsync();
+            var users = await _context.Users.ToListAsync();
 
-            return gameResults;
+            return users;
         }
-        public async Task<GameResult> SaveAsync(GameResult gameResult)
+
+        public async Task<User> SaveAsync(User user)
         {
-            await _context.AddAsync<GameResult>(gameResult);
+            await _context.AddAsync<User>(user);
 
             try
             {
@@ -32,7 +33,7 @@ namespace GeniyIdiotWebApi.Repository
                 throw new Exception("Не удалось сохранить в БД. Откат");
             }
 
-            return gameResult;
+            return user;
         }
     }
 }

@@ -27,9 +27,11 @@ namespace GeniyIdiotWebApi
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.Services.AddScoped<GameResultRepository>();
             builder.Services.AddScoped<RankRepository>();
+            builder.Services.AddScoped<UserRepository>();
 
             builder.Services.AddScoped<QuestionService>();
             builder.Services.AddScoped<GameResultService>();
+            builder.Services.AddScoped<UserService>();
 
             var app = builder.Build();
 

@@ -32,23 +32,18 @@ namespace GeniyIdiotWebApi.Controllers
             return Ok(questions);
         }
 
-        [HttpGet("GameResults")]
+        [HttpGet("allGameResults")]
         public async Task<ActionResult<List<GameResultDTO>>> GetAllGameResults()
         {
-            //TODO: Реализовать получение всех результатов за  всё время
+            var gameResults = _gameResultService.GetAllAsync();
+
+            return Ok(gameResults);
         }
 
-        [HttpPost("GameResult")]
+        [HttpPost("gameResult")]
         public async Task<ActionResult<GameResultDTO>> PostGameResult([FromBody] UserGameResultRequestDTO request)
         {
-            if (request == null || request.UserAnswerDTOs == null)
-            {
-                return BadRequest("Неверный формат данных");
-            }
-
-            var result = await _gameResultService.GetGameResultAsync(request);
-
-            //TODO: Тут сохранение результата  в БД
+            var result = await _gameResultService.CalculateAsync(request);
 
             return Ok(result);
         }

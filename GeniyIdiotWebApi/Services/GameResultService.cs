@@ -17,7 +17,21 @@ namespace GeniyIdiotWebApi.Services
             _rankRepository = rankRepository;
         }
 
-        public async Task<GameResultDTO> GetGameResultAsync(UserGameResultRequestDTO request)
+        public async Task<List<GameResultDTO>> GetAllAsync()
+        {
+            var gameResults = await _gameResultRepository.GetAll();
+
+            var gameResultsDTO = gameResults.Select(gr => new GameResultDTO
+            {
+                UserId = gr.UserId,
+                Score = gr.Score,
+                Rank = gr.Rank
+            }).ToList();
+
+            return gameResultsDTO;
+        }
+
+        public async Task<GameResultDTO> CalculateAsync(UserGameResultRequestDTO request)
         {
             var questions = await _questionRepository.GetAllAsync();
 
@@ -39,7 +53,7 @@ namespace GeniyIdiotWebApi.Services
 
             try
             {
-               await _gameResultRepository.SaveAsync(gameResult);
+                await _gameResultRepository.SaveAsync(gameResult);
             }
 
             catch (Exception ex)
@@ -52,7 +66,7 @@ namespace GeniyIdiotWebApi.Services
             return gameResultDTO;
         }
 
-        public async Task<string> CalculateRank(int score, int questionCount)
+        private async Task<string> CalculateRank(int score, int questionCount)
         {
             var ranks = await _rankRepository.GetRanksAsync();
             double percentCorrectCount = (double)score / questionCount * 100;
