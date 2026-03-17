@@ -23,8 +23,7 @@ namespace GeniyIdiotWebApi.Services
             {
                 Id = q.Id,
                 Title = q.Title
-            }
-            ).ToList();
+            }).ToList();
         }
 
         public async Task<List<QuestionDTO>> GetShuffledAsync()
