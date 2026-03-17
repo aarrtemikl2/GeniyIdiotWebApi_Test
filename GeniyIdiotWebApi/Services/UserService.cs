@@ -40,5 +40,14 @@ namespace GeniyIdiotWebApi.Services
 
             return userDTO;
         }
+
+        public async Task<bool> IsExistAsync(UserDTO userDTO)
+        {
+            var users = await _userRepository.GetAll();
+
+            var isExist = users.Any(u => u.Name == userDTO.Name);
+
+            return isExist;
+        }
     }
 }

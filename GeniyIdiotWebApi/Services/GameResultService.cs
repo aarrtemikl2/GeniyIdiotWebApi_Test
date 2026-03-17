@@ -10,11 +10,13 @@ namespace GeniyIdiotWebApi.Services
         private readonly IQuestionRepository _questionRepository;
         private readonly GameResultRepository _gameResultRepository;
         private readonly RankRepository _rankRepository;
-        public GameResultService(IQuestionRepository questionRepository, GameResultRepository gameResultRepository, RankRepository rankRepository)
+        private readonly UserRepository _userRepository;
+        public GameResultService(IQuestionRepository questionRepository, GameResultRepository gameResultRepository, RankRepository rankRepository, UserRepository userRepository)
         {
             _questionRepository = questionRepository;
             _gameResultRepository = gameResultRepository;
             _rankRepository = rankRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<List<GameResultDTO>> GetAllAsync()
@@ -49,7 +51,9 @@ namespace GeniyIdiotWebApi.Services
             }
             var rank = await CalculateRank(score, totalQuestions);
 
-            var gameResult = new GameResult(request.UserId, score, rank);
+            var user = _userRepository.GetByNameAsync(request.UserName);
+
+            var gameResult = new GameResult(user.Id, score, rank);
 
             try
             {

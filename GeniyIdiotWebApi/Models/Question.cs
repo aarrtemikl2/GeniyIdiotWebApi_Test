@@ -12,5 +12,10 @@
             Title = title;
             Answer = answer;
         }
+
+        public Question(int id)
+        {
+            Id = id;
+        }
     }
 }

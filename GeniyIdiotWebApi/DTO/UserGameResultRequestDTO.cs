@@ -5,12 +5,12 @@ namespace GeniyIdiotWebApi.DTO
     public class UserGameResultRequestDTO
     {
         [Required]
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         [Required]
         public List<UserAnswerDTO> UserAnswerDTOs { get; set; }
-        public UserGameResultRequestDTO(int userId, List<UserAnswerDTO> userAnswerDTOs)
+        public UserGameResultRequestDTO(string userName, List<UserAnswerDTO> userAnswerDTOs)
         {
-            UserId = userId;
+            UserName = userName;
             UserAnswerDTOs = userAnswerDTOs;
         }
     }

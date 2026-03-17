@@ -1,6 +1,7 @@
 ﻿using GeniyIdiotWebApi.DTO;
 using GeniyIdiotWebApi.Interfaces;
 using GeniyIdiotWebApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeniyIdiotWebApi.Services
 {
@@ -14,7 +15,7 @@ namespace GeniyIdiotWebApi.Services
             _questionRepository = questionRepository;
         }
 
-        public async Task<List<QuestionDTO>> GetQuestionsAsync()
+        public async Task<List<QuestionDTO>> GetAllAsync()
         {
             var questions = await _questionRepository.GetAllAsync();
 
@@ -26,7 +27,7 @@ namespace GeniyIdiotWebApi.Services
             ).ToList();
         }
 
-        public async Task<List<QuestionDTO>> GetShuffledQuestionsAsync()
+        public async Task<List<QuestionDTO>> GetShuffledAsync()
         {
             var questions = await _questionRepository.GetAllAsync();
 
@@ -38,6 +39,13 @@ namespace GeniyIdiotWebApi.Services
                 Title = q.Title
             }
             ).ToList();
+        }
+        public async Task<bool> IsAllExistAsync(List<UserAnswerDTO> userAnswerDTOs)
+        {
+            var questions = await _questionRepository.GetAllAsync();
+
+            return userAnswerDTOs.All(userAsnwer => questions.Select(q => q.Id)
+                                                         .Contains(userAsnwer.QuestionId));
         }
     }
 }

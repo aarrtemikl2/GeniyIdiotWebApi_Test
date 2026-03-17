@@ -10,16 +10,18 @@ namespace GeniyIdiotWebApi.Controllers
     {
         private readonly QuestionService _questionService;
         private readonly GameResultService _gameResultService;
-        public GameController(QuestionService questionService, GameResultService gameResultService)
+        private readonly UserService _userService;
+        public GameController(QuestionService questionService, GameResultService gameResultService, UserService userService)
         {
             _questionService = questionService;
             _gameResultService = gameResultService;
+            _userService = userService;
         }
 
         [HttpGet("questions")]
         public async Task<ActionResult<List<QuestionDTO>>> GetQuestions()
         {
-            var questions = _questionService.GetQuestionsAsync();
+            var questions = _questionService.GetAllAsync();
 
             return Ok(questions);
         }
@@ -27,7 +29,7 @@ namespace GeniyIdiotWebApi.Controllers
         [HttpGet("shuffleQuestions")]
         public async Task<ActionResult<List<QuestionDTO>>> GetShuffleQuestions()
         {
-            var questions = _questionService.GetShuffledQuestionsAsync();
+            var questions = _questionService.GetShuffledAsync();
 
             return Ok(questions);
         }
@@ -43,6 +45,21 @@ namespace GeniyIdiotWebApi.Controllers
         [HttpPost("gameResult")]
         public async Task<ActionResult<GameResultDTO>> PostGameResult([FromBody] UserGameResultRequestDTO request)
         {
+            var isQuestionsExist = await _questionService.IsAllExistAsync(request.UserAnswerDTOs);
+
+            if (!isQuestionsExist)
+            {
+                return StatusCode(400, "One of the questions does not exist");
+            }
+
+            var userDTO = new UserDTO(request.UserName);
+            var isUserExist = await _userService.IsExistAsync(userDTO);
+
+            if (!isUserExist)
+            {
+                return StatusCode(400, "User does not exist");
+            }
+
             var result = await _gameResultService.CalculateAsync(request);
 
             return Ok(result);
