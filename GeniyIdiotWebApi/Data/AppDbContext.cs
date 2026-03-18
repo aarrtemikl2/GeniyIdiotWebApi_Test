@@ -12,7 +12,6 @@ namespace GeniyIdiotWebApi.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<GameResult> GameResults { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<AnswerAttempt> AnswerAttempts { get; set; }
         public DbSet<Rank> Ranks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
