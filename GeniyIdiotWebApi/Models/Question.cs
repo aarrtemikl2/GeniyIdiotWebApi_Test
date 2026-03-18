@@ -17,5 +17,10 @@
         {
             Id = id;
         }
+        public Question(string title, int answer)
+        {
+            Title = title;
+            Answer = answer;
+        }
     }
 }

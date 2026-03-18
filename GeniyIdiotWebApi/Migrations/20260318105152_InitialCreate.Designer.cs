@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeniyIdiotWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260316141610_InitialCreate")]
+    [Migration("20260318105152_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
