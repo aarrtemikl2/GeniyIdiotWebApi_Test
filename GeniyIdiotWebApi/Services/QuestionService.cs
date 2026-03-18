@@ -53,12 +53,27 @@ namespace GeniyIdiotWebApi.Services
 
             return questions.Any(q => q.Title == questionRequestDTO.Title);
         }
+        public async Task<bool> IsExistByIdAsync(int id)
+        {
+            var questions = await _questionRepository.GetAllAsync();
 
-        public async Task<QuestionDTO> Create(QuestionRequestDTO questionRequestDTO)
+            return questions.Any(q => q.Id == id);
+        }
+
+        public async Task<QuestionDTO> CreateAsync(QuestionRequestDTO questionRequestDTO)
         {
             var question = new Question(questionRequestDTO.Title, questionRequestDTO.Answer);
 
             await _questionRepository.AddAsync(question);
+
+            var questionDTO = new QuestionDTO(question.Id, question.Title);
+
+            return questionDTO;
+        }
+
+        public async Task<QuestionDTO> GetQuestionDTOAsync(int id)
+        {
+            var question = await _questionRepository.GetByIdAsync(id);
 
             var questionDTO = new QuestionDTO(question.Id, question.Title);
 

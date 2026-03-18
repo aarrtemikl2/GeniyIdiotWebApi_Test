@@ -1,5 +1,6 @@
 ﻿using GeniyIdiotWebApi.DTO;
 using GeniyIdiotWebApi.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeniyIdiotWebApi.Controllers
@@ -41,10 +42,24 @@ namespace GeniyIdiotWebApi.Controllers
                 return StatusCode(409, "The question already exists");
             }
 
-            var result = await _questionService.Create(request);
+            var result = await _questionService.CreateAsync(request);
 
             return StatusCode(201, result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<QuestionDTO>> GetById(int id)
+        {
+            var isExist = await _questionService.IsExistByIdAsync(id);
+
+            if (!isExist)
+            {
+                return StatusCode(409, "The question doesn't exist");
+            }
+
+            var questionDTO = _questionService.GetQuestionDTOAsync(id);
+
+            return StatusCode(200, questionDTO);
+        }
     }
 }
