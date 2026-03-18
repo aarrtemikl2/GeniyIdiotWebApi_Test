@@ -2,8 +2,8 @@
 {
     public class QuestionRequestDTO
     {
-        public string Title {  get; set; }
-        public int Answer {  get; set; }
+        public string Title { get; set; }
+        public int Answer { get; set; }
 
         public QuestionRequestDTO(string title, int answer)
         {

@@ -25,7 +25,7 @@ namespace GeniyIdiotWebApi.Services
 
                 return selectedUserDTO;
             }
-            
+
             try
             {
                 await _userRepository.SaveAsync(user);

@@ -7,7 +7,7 @@
         public int UserAnswer { get; set; }
         public bool IsCorrect { get; set; }
 
-        public AnswerAttempt(int id,int questionId, int userAnswer)
+        public AnswerAttempt(int id, int questionId, int userAnswer)
         {
             Id = id;
             QuestionId = questionId;

@@ -1,6 +1,5 @@
 ﻿using GeniyIdiotWebApi.DTO;
 using GeniyIdiotWebApi.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeniyIdiotWebApi.Controllers
@@ -31,7 +30,7 @@ namespace GeniyIdiotWebApi.Controllers
 
             return Ok(questions);
         }
-        //TODO: Реализовать  методы удаления/добавление/получение вопроса
+
         [HttpPost("question")]
         public async Task<ActionResult<QuestionDTO>> Create([FromBody] QuestionRequestDTO request)
         {
@@ -63,7 +62,7 @@ namespace GeniyIdiotWebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public  async Task<ActionResult> DeleteById(int id)
+        public async Task<ActionResult> DeleteById(int id)
         {
             var isExist = await _questionService.IsExistByIdAsync(id);
 
@@ -74,11 +73,7 @@ namespace GeniyIdiotWebApi.Controllers
 
             var isSuccess = await _questionService.TryDeleteByIdAsync(id);
 
-            if (isSuccess)
-            { 
-                return NoContent(); 
-            }
-            return StatusCode(500);
+            return isSuccess ? NoContent() : (ActionResult)StatusCode(500);
         }
     }
 }
