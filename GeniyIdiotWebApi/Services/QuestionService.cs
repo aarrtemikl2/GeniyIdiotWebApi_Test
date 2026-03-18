@@ -1,7 +1,6 @@
 ﻿using GeniyIdiotWebApi.DTO;
 using GeniyIdiotWebApi.Interfaces;
 using GeniyIdiotWebApi.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GeniyIdiotWebApi.Services
 {
@@ -78,6 +77,20 @@ namespace GeniyIdiotWebApi.Services
             var questionDTO = new QuestionDTO(question.Id, question.Title);
 
             return questionDTO;
+        }
+
+        public async Task<bool> TryDeleteByIdAsync(int id)
+        {
+            try
+            {
+                await _questionRepository.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

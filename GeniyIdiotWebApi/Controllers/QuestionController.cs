@@ -54,12 +54,31 @@ namespace GeniyIdiotWebApi.Controllers
 
             if (!isExist)
             {
-                return StatusCode(409, "The question doesn't exist");
+                return StatusCode(404, "The question doesn't exist");
             }
 
             var questionDTO = _questionService.GetQuestionDTOAsync(id);
 
             return StatusCode(200, questionDTO);
+        }
+
+        [HttpDelete("{id}")]
+        public  async Task<ActionResult> DeleteById(int id)
+        {
+            var isExist = await _questionService.IsExistByIdAsync(id);
+
+            if (!isExist)
+            {
+                return StatusCode(404, "The question doesn't exist");
+            }
+
+            var isSuccess = await _questionService.TryDeleteByIdAsync(id);
+
+            if (isSuccess)
+            { 
+                return NoContent(); 
+            }
+            return StatusCode(500);
         }
     }
 }
