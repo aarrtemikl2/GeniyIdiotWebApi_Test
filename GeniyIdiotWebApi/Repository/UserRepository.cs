@@ -39,8 +39,8 @@ namespace GeniyIdiotWebApi.Repository
         public async Task<User> GetByNameAsync(string name)
         {
             var users = await _context.Users.ToListAsync();
-            
-            return users.First(u =>  u.Name == name);
+
+            return users.First(u => u.Name == name);
         }
     }
 }

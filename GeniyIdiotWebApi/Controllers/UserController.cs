@@ -16,7 +16,7 @@ namespace GeniyIdiotWebApi.Controllers
         }
 
         [HttpPost("user")]
-        public async Task<ActionResult<UserDTO>> CreateUserAsync (UserRequestDTO userRequestDTO)
+        public async Task<ActionResult<UserDTO>> CreateUserAsync(UserRequestDTO userRequestDTO)
         {
             var userDTO = await _userService.CreateAsync(userRequestDTO);
 

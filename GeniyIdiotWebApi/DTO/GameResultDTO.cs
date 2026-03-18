@@ -9,8 +9,8 @@
         public GameResultDTO() { }
         public GameResultDTO(int userId, int score, string rank)
         {
-            UserId = userId; 
-            Score = score; 
+            UserId = userId;
+            Score = score;
             Rank = rank;
         }
     }

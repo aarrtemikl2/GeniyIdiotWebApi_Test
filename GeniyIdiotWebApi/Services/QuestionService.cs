@@ -1,7 +1,6 @@
 ﻿using GeniyIdiotWebApi.DTO;
 using GeniyIdiotWebApi.Interfaces;
 using GeniyIdiotWebApi.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GeniyIdiotWebApi.Services
 {
@@ -43,8 +42,55 @@ namespace GeniyIdiotWebApi.Services
         {
             var questions = await _questionRepository.GetAllAsync();
 
-            return userAnswerDTOs.All(userAsnwer => questions.Select(q => q.Id)
-                                                         .Contains(userAsnwer.QuestionId));
+            return userAnswerDTOs.All(userAnswer => questions.Select(q => q.Id)
+                                                         .Contains(userAnswer.QuestionId));
+        }
+
+        public async Task<bool> IsExistAsync(QuestionRequestDTO questionRequestDTO)
+        {
+            var questions = await _questionRepository.GetAllAsync();
+
+            return questions.Any(q => q.Title == questionRequestDTO.Title);
+        }
+        public async Task<bool> IsExistByIdAsync(int id)
+        {
+            var questions = await _questionRepository.GetAllAsync();
+
+            return questions.Any(q => q.Id == id);
+        }
+
+        public async Task<QuestionDTO> CreateAsync(QuestionRequestDTO questionRequestDTO)
+        {
+            var question = new Question(questionRequestDTO.Title, questionRequestDTO.Answer);
+
+            await _questionRepository.AddAsync(question);
+
+            var questionDTO = new QuestionDTO(question.Id, question.Title);
+
+            return questionDTO;
+        }
+
+        public async Task<QuestionDTO> GetQuestionDTOAsync(int id)
+        {
+            var question = await _questionRepository.GetByIdAsync(id);
+
+            var questionDTO = new QuestionDTO(question.Id, question.Title);
+
+            return questionDTO;
+        }
+
+        public async Task<bool> TryDeleteByIdAsync(int id)
+        {
+            try
+            {
+                await _questionRepository.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

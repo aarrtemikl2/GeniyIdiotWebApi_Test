@@ -18,22 +18,6 @@ namespace GeniyIdiotWebApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet("questions")]
-        public async Task<ActionResult<List<QuestionDTO>>> GetQuestions()
-        {
-            var questions = _questionService.GetAllAsync();
-
-            return Ok(questions);
-        }
-
-        [HttpGet("shuffleQuestions")]
-        public async Task<ActionResult<List<QuestionDTO>>> GetShuffleQuestions()
-        {
-            var questions = _questionService.GetShuffledAsync();
-
-            return Ok(questions);
-        }
-
         [HttpGet("allGameResults")]
         public async Task<ActionResult<List<GameResultDTO>>> GetAllGameResults()
         {
@@ -49,7 +33,7 @@ namespace GeniyIdiotWebApi.Controllers
 
             if (!isQuestionsExist)
             {
-                return StatusCode(400, "One of the questions does not exist");
+                return StatusCode(404, "One of the questions does not exist");
             }
 
             var userDTO = new UserDTO(request.UserName);
@@ -57,7 +41,7 @@ namespace GeniyIdiotWebApi.Controllers
 
             if (!isUserExist)
             {
-                return StatusCode(400, "User does not exist");
+                return StatusCode(404, "User does not exist");
             }
 
             var result = await _gameResultService.CalculateAsync(request);
